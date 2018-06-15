@@ -8,33 +8,32 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.spring.service.HelloMessageService;
 
+import lombok.extern.slf4j.Slf4j;
+
 import static java.lang.System.exit;
 
 @SpringBootApplication
+@Slf4j
 public class SpringBootConsoleApplication implements CommandLineRunner {
 
-    @Autowired
-    private HelloMessageService helloService;
+	@Autowired
+	private HelloMessageService helloService;
 
-    public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
+		SpringApplication app = new SpringApplication(SpringBootConsoleApplication.class);
+		app.setBannerMode(Banner.Mode.OFF);
+		app.run(args);
+		// SpringApplication.run(SpringBootConsoleApplication.class, args);
+	}
 
-        //disabled banner, don't want to see the spring logo
-        SpringApplication app = new SpringApplication(SpringBootConsoleApplication.class);
-        app.setBannerMode(Banner.Mode.OFF);
-        app.run(args);
+	@Override
+	public void run(String... args) throws Exception {
+		if (args.length > 0) {
+			log.info("args : {}", helloService.getMessage(args[0].toString()));
+		} else {
+			log.info("name : {}", helloService.getMessage());
+		}
 
-        //SpringApplication.run(SpringBootConsoleApplication.class, args);
-    }
-
-    @Override
-    public void run(String... args) throws Exception {
-
-        if (args.length > 0 ) {
-            System.out.println(helloService.getMessage(args[0].toString()));
-        }else{
-            System.out.println(helloService.getMessage());
-        }
-
-        exit(0);
-    }
+		exit(0);
+	}
 }
