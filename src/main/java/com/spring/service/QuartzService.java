@@ -7,7 +7,6 @@ import org.quartz.JobDetail;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
@@ -23,7 +22,9 @@ import lombok.extern.slf4j.Slf4j;
 public class QuartzService {
 	public void schedule() {
 		try {
-			System.setProperty(StdSchedulerFactory.PROPERTIES_FILE, "quartz.properties");
+			//new StdSchedulerFactory("quartz.properties")로 이동
+			//classpath에서 해당 인자명으로 파일 검색하여 quartz 설정을 인식한다.
+//			System.setProperty(StdSchedulerFactory.PROPERTIES_FILE, "quartz.properties");
 			
 			JobDataMap jobDataMap = new JobDataMap();
 			jobDataMap.put("jobDataKey", "jobDataValue");
@@ -57,7 +58,7 @@ public class QuartzService {
 					.withSchedule(CronScheduleBuilder.cronSchedule("0/5 * * * * ?"))
 					.build();
 		
-			Scheduler scheduler = new StdSchedulerFactory().getScheduler();
+			Scheduler scheduler = new StdSchedulerFactory("quartz.properties").getScheduler();
 			scheduler.start();
 			scheduler.scheduleJob(sampleJob, sampleTrigger);
 			scheduler.scheduleJob(simpleJob, simpleTrigger);
