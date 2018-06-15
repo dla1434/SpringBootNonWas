@@ -23,6 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 public class QuartzService {
 	public void schedule() {
 		try {
+			System.setProperty(StdSchedulerFactory.PROPERTIES_FILE, "quartz.properties");
+			
 			JobDataMap jobDataMap = new JobDataMap();
 			jobDataMap.put("jobDataKey", "jobDataValue");
 			
