@@ -11,6 +11,7 @@ import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.spring.quartz.job.SampleJob;
 import com.spring.quartz.job.SimpleJob;
@@ -20,6 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class QuartzService {
+	@Autowired
+	Scheduler scheduler;
+
 	public void schedule() {
 		try {
 			//new StdSchedulerFactory("quartz.properties")로 이동
@@ -58,8 +62,8 @@ public class QuartzService {
 					.withSchedule(CronScheduleBuilder.cronSchedule("0/5 * * * * ?"))
 					.build();
 		
-			Scheduler scheduler = new StdSchedulerFactory("quartz.properties").getScheduler();
-			scheduler.start();
+// 			Scheduler scheduler = new StdSchedulerFactory("quartz.properties").getScheduler();
+// 			scheduler.start();
 			scheduler.scheduleJob(sampleJob, sampleTrigger);
 			scheduler.scheduleJob(simpleJob, simpleTrigger);
 			
