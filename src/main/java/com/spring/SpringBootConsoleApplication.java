@@ -6,18 +6,16 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.spring.service.HelloMessageService;
+import com.spring.service.QuartzService;
 
 import lombok.extern.slf4j.Slf4j;
-
-import static java.lang.System.exit;
 
 @SpringBootApplication
 @Slf4j
 public class SpringBootConsoleApplication implements CommandLineRunner {
 
 	@Autowired
-	private HelloMessageService helloService;
+	private QuartzService quartzService;
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication app = new SpringApplication(SpringBootConsoleApplication.class);
@@ -28,12 +26,7 @@ public class SpringBootConsoleApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		if (args.length > 0) {
-			log.info("args : {}", helloService.getMessage(args[0].toString()));
-		} else {
-			log.info("name : {}", helloService.getMessage());
-		}
-
-		exit(0);
+		log.info("quartzService execute");
+		quartzService.schedule();
 	}
 }
