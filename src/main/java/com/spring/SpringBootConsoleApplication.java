@@ -5,18 +5,19 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.spring.service.QuartzService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
+@EnableScheduling
 @Slf4j
 public class SpringBootConsoleApplication implements CommandLineRunner {
-
 	@Autowired
 	private QuartzService quartzService;
-
+	
 	public static void main(String[] args) throws Exception {
 		SpringApplication app = new SpringApplication(SpringBootConsoleApplication.class);
 		app.setBannerMode(Banner.Mode.OFF);
@@ -26,7 +27,7 @@ public class SpringBootConsoleApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		log.info("quartzService execute");
-		quartzService.schedule();
+//		log.info("quartzService execute");
+//		quartzService.schedule();
 	}
 }
